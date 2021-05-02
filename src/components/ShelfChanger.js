@@ -7,11 +7,11 @@ const ShelfChanger = ({ book, books, shelfChange }) => {
   let currShelf = 'none';
 
   // if book is in current list, set the currShelf to book.shelf
-  for (let item of books) {
-    if (item.id === book.id) {
-      currShelf = item.shelf;
+  books.forEach(one => {
+    if (one.id === book.id) {
+      currShelf = one.shelf;
     }
-  }
+  });
 
   return (
     <div className="book-shelf-changer">
