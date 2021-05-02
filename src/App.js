@@ -13,12 +13,38 @@ const App = () => {
       const booksList = await BooksAPI.getAll();
       setBooks(booksList);
     })();
-  }, []);
+  });
+
+  const shelfChange = async (changedBook, shelf) => {
+    const newShelf = await BooksAPI.update(changedBook, shelf);
+
+    // changing the shelf for book
+    changedBook.shelf = newShelf;
+
+    // update books state, remove the changedBook and add it to array
+    setBooks(
+      books.filter(book => book.id !== changedBook.id).concat(changedBook)
+    );
+  };
 
   return (
     <div className="app">
-      <Route exact path="/" render={() => <Home books={books} />} />
-      <Route path="/search" render={() => <Search books={books} />} />
+      <Route
+        exact
+        path="/"
+        render={() => (
+          <div className="list-books">
+            <div className="list-books-title">
+              <h1>MyReads</h1>
+            </div>
+            <Home books={books} shelfChange={shelfChange} />
+          </div>
+        )}
+      />
+      <Route
+        path="/search"
+        render={() => <Search books={books} shelfChange={shelfChange} />}
+      />
     </div>
   );
 };

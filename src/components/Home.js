@@ -1,14 +1,15 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import BookShelf from './BookShelf';
+import BookShelfList from './BookShelfList';
 
-const BooksLibrary = ({ books }) => {
+const Home = ({ books, shelfChange }) => {
   return (
-    <div className="list-books">
-      <div className="list-books-title">
-        <h1>MyReads</h1>
-      </div>
-      <BookShelf title="Currently Reading" books={books} />
+    <div>
+      <BookShelfList
+        title="Currently Reading"
+        books={books}
+        shelfChange={shelfChange}
+      />
       <div className="open-search">
         <Link className="button" to="/search">
           Add a book
@@ -18,4 +19,4 @@ const BooksLibrary = ({ books }) => {
   );
 };
 
-export default BooksLibrary;
+export default Home;
